@@ -47436,7 +47436,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (error.response.status === 422) {
           _this.errors.record(error.response.data.errors);
         }
-        console.error('error', error.response);
       });
     },
     clearData: function clearData() {

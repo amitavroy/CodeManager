@@ -52,7 +52,6 @@
           if (error.response.status === 422) {
             this.errors.record(error.response.data.errors)
           }
-          console.error('error', error.response)
         })
       },
       clearData () {
