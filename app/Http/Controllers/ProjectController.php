@@ -19,7 +19,7 @@ class ProjectController extends Controller
             'git_url' => 'required',
         ]);
 
-        $project = Project::create([
+        Project::create([
             'name' => $data['name'],
             'git_url' => $data['git_url'],
         ]);
