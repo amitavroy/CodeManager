@@ -19,5 +19,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('project/add', 'ProjectController@add')->name('project-add');
-Route::post('project/add', 'ProjectController@store')->name('project-save');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('project/add', 'ProjectController@add')->name('project-add');
+    Route::post('project/add', 'ProjectController@store')->name('project-save');
+});
