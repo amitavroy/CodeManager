@@ -12,7 +12,9 @@ before_script:
   - cp .env.travis .env
   - pear install pear/PHP_CodeSniffer
   - phpenv rehash
+  - npm install
 
 script:
   - vendor/bin/phpunit --coverage-text
   - vendor/bin/phpcs --standard=PSR2 app/
+  - npm run test
