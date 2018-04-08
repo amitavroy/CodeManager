@@ -13994,6 +13994,7 @@ __webpack_require__(15);
 window.Vue = __webpack_require__(37);
 
 Vue.component('example-component', __webpack_require__(40));
+Vue.component('card', __webpack_require__(45));
 Vue.component('project-add', __webpack_require__(43));
 
 var app = new Vue({

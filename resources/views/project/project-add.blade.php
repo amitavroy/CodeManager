@@ -2,10 +2,6 @@
 
 @section('content')
     <div class="container">
-
-    </div>
-
-    <div class="container">
         <div class="d-flex justify-content-center">
             <div class="col-sm-8">
                 <div class="pb-4">@include('project.project-tabs')</div>

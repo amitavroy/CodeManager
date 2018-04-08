@@ -18,6 +18,20 @@ class ProjectCreateTest extends TestCase
         parent::setUp();
         $this->user = factory(User::class)->create();
     }
+    
+    /** @test */
+    public function a_guest_should_not_see_project_create_page()
+    {
+        $this->get(route('project-add'))
+            ->assertRedirect('/login');
+
+        $response = $this->post(route('project-save'), [
+            'name' => 'Dummy test',
+            'git_url' => 'https://gitlab@com.com'
+        ]);
+
+        $response->assertRedirect('/login');
+    }
 
     /** @test */
     public function a_logged_in_user_can_see_create_project_page()

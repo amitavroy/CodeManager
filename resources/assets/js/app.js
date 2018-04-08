@@ -3,6 +3,7 @@ require('./bootstrap')
 window.Vue = require('vue')
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'))
+Vue.component('card', require('./components/Card.vue'))
 Vue.component('project-add', require('./project/ProjectAdd.vue'))
 
 const app = new Vue({

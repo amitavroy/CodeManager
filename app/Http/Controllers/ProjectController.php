@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
+    public function index()
+    {
+        $projects = Project::orderBy('name')->paginate(10);
+
+        return view('project.project-list', compact('projects'));
+    }
+
     public function add()
     {
         return view('project.project-add');
