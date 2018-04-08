@@ -45,9 +45,4 @@ describe('Testing Project add component', () =>  {
       done()
     })
   })
-
-  let see = (text, selector) => {
-    let wrap = selector ? wrapper.find(selector) : wrapper;
-    expect(wrap.html()).toContain(text);
-  };
 })
