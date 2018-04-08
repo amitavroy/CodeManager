@@ -1,0 +1,21 @@
+before_script:
+  - git submodule update --init
+  - php -v
+  - node -v
+  - composer --version
+  - git --version
+  - ls -lah
+  - composer self-update
+  - composer install --no-interaction
+  - npm install
+  - php artisan env
+  - touch database/testing.sqlite
+  - php artisan migrate
+
+# PHP 7.1
+test:php7.1:
+  image: bycedric/laravel-test
+  script:
+  - vendor/bin/phpunit
+  - vendor/bin/phpcs --standard=PSR2 app/
+  - npm run test
