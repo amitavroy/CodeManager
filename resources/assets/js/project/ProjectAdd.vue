@@ -1,6 +1,10 @@
 <template>
   <div>
     <card>
+      <modal :open="modelOpen" v-on:saved="handleModalSave">
+        <template slot="title">Success</template>
+      </modal>
+
       <div class="form-group">
         <label for="name">Project name</label>
 
@@ -28,15 +32,17 @@
   import Card from './../components/Card'
   import axios from 'axios'
   import Errors from './../utils/Errors'
+  import Modal from './../components/Modal'
   export default {
     components: {
-      Card
+      Card, Modal
     },
     data () {
       return {
         name: '',
         gitUrl: '',
-        errors: new Errors()
+        errors: new Errors(),
+        modelOpen: false
       }
     },
     methods: {
@@ -47,7 +53,7 @@
         }
         axios.post('/project/add', data).then(response => {
           this.clearData()
-          alert('Project data saved')
+        this.modelOpen = true
         }).catch(error => {
           if (error.response.status === 422) {
             this.errors.record(error.response.data.errors)
@@ -58,6 +64,9 @@
         this.name = ''
         this.gitUrl = ''
         this.errors.empty()
+      },
+      handleModalSave () {
+        this.modelOpen = false
       }
     }
   }

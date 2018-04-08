@@ -47379,6 +47379,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils_Errors__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Modal__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Modal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Modal__);
 //
 //
 //
@@ -47405,19 +47407,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Card: __WEBPACK_IMPORTED_MODULE_0__components_Card___default.a
+    Card: __WEBPACK_IMPORTED_MODULE_0__components_Card___default.a, Modal: __WEBPACK_IMPORTED_MODULE_3__components_Modal___default.a
   },
   data: function data() {
     return {
       name: '',
       gitUrl: '',
-      errors: new __WEBPACK_IMPORTED_MODULE_2__utils_Errors__["a" /* default */]()
+      errors: new __WEBPACK_IMPORTED_MODULE_2__utils_Errors__["a" /* default */](),
+      modelOpen: false
     };
   },
 
@@ -47431,7 +47439,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       };
       __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/project/add', data).then(function (response) {
         _this.clearData();
-        alert('Project data saved');
+        _this.modelOpen = true;
       }).catch(function (error) {
         if (error.response.status === 422) {
           _this.errors.record(error.response.data.errors);
@@ -47442,6 +47450,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.name = '';
       this.gitUrl = '';
       this.errors.empty();
+    },
+    handleModalSave: function handleModalSave() {
+      this.modelOpen = false;
     }
   }
 });
@@ -47566,85 +47577,99 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("card", [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "name" } }, [_vm._v("Project name")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.name,
-                expression: "name"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              name: "name",
-              id: "name",
-              placeholder: "Enter project name"
+      _c(
+        "card",
+        [
+          _c(
+            "modal",
+            {
+              attrs: { open: _vm.modelOpen },
+              on: { saved: _vm.handleModalSave }
             },
-            domProps: { value: _vm.name },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+            [_c("template", { slot: "title" }, [_vm._v("Success")])],
+            2
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "name" } }, [_vm._v("Project name")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
                 }
-                _vm.name = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("span", {
-            staticClass: "text-danger help",
-            domProps: { textContent: _vm._s(_vm.errors.get("name")) }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "git-url" } }, [_vm._v("Git url")]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.gitUrl,
-                expression: "gitUrl"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              name: "name",
-              id: "git-url",
-              placeholder: "Enter project git url"
-            },
-            domProps: { value: _vm.gitUrl },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "name",
+                id: "name",
+                placeholder: "Enter project name"
+              },
+              domProps: { value: _vm.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
                 }
-                _vm.gitUrl = $event.target.value
               }
-            }
-          }),
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "text-danger help",
+              domProps: { textContent: _vm._s(_vm.errors.get("name")) }
+            })
+          ]),
           _vm._v(" "),
-          _c("span", {
-            staticClass: "text-danger help",
-            domProps: { textContent: _vm._s(_vm.errors.get("git_url")) }
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", on: { click: _vm.submit } },
-          [_vm._v("Save")]
-        )
-      ])
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "git-url" } }, [_vm._v("Git url")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.gitUrl,
+                  expression: "gitUrl"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "name",
+                id: "git-url",
+                placeholder: "Enter project git url"
+              },
+              domProps: { value: _vm.gitUrl },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.gitUrl = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("span", {
+              staticClass: "text-danger help",
+              domProps: { textContent: _vm._s(_vm.errors.get("git_url")) }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", on: { click: _vm.submit } },
+            [_vm._v("Save")]
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -47664,6 +47689,193 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(55)
+/* template */
+var __vue_template__ = __webpack_require__(56)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6e8d36f4", Component.options)
+  } else {
+    hotAPI.reload("data-v-6e8d36f4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['open'],
+  created: function created() {},
+
+  watch: {
+    open: function open() {
+      if (this.open === true) {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.modal').modal();
+      } else {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.modal').modal('hide');
+      }
+    }
+  },
+  methods: {
+    handleSaveButtonClick: function handleSaveButtonClick() {
+      this.$emit('saved');
+    }
+  }
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "modal", attrs: { tabindex: "-1", role: "dialog" } },
+    [
+      _c("div", { staticClass: "modal-dialog", attrs: { role: "document" } }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm.$slots.title
+            ? _c("div", { staticClass: "modal-header" }, [
+                _c("h5", { staticClass: "modal-title" }, [_vm._t("title")], 2),
+                _vm._v(" "),
+                _vm._m(0)
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.$slots.body
+            ? _c("div", { staticClass: "modal-body" }, [_vm._t("body")], 2)
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _vm.$slots.confirmbtn
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: { click: _vm.handleSaveButtonClick }
+                  },
+                  [_vm._t("confirmbtn")],
+                  2
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Close")]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "close",
+        attrs: {
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      },
+      [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+    )
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-6e8d36f4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
