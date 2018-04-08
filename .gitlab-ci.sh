@@ -20,7 +20,7 @@ curl -sS https://getcomposer.org/installer | php
 php composer.phar install
 
 # Copy over testing configuration.
-cp .env.travis .env
+cp .env.testing .env
 
 # Generate an application key. Re-cache.
 php artisan key:generate

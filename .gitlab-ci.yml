@@ -8,8 +8,6 @@ before_script:
   - composer self-update
   - composer install --no-interaction
   - npm install
-  - cp .env.travis .env
-  - php artisan key:generate
   - php artisan env
   - touch database/testing.sqlite
   - php artisan migrate
@@ -21,3 +19,4 @@ test:php7.1:
   - vendor/bin/phpunit
   - vendor/bin/phpcs --standard=PSR2 app/
   - npm run test
+
