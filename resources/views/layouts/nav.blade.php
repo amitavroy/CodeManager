@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li>
-                    <a class="nav-link {{Route::is('project-add') ? 'active' : ''}}" href="{{ route('project-add') }}">
+                    <a class="nav-link {{Route::is('project-list') ? 'active' : ''}}" href="{{ route('project-list') }}">
                         {{ __('Projects') }}
                     </a>
                 </li>

@@ -23,7 +23,7 @@
                     <tbody>
                     @foreach($projects as $project)
                         <tr>
-                            <td>{{$project->name}}</td>
+                            <td><a href="{{route('project-view', $project->id)}}">{{$project->name}}</a></td>
                             <td>{{$project->git_url}}</td>
                             <td></td>
                         </tr>

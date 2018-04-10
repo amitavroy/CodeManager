@@ -33,4 +33,11 @@ class ProjectController extends Controller
 
         return response()->json([], 201);
     }
+
+    public function view($id)
+    {
+        $project = Project::findOrFail($id);
+
+        return view('project.project-view', compact('project'));
+    }
 }
